@@ -75,7 +75,11 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return self.maxNumberOfLine || self.maxHeight > 0.0f ? CGSizeMake(self.contentSize.width, MAX(_placeholderLabel.frame.size.height, MIN(self.contentSize.height, MAX(self.maxHeight, self.internalMaxHeight)))) : self.contentSize;
+    CGFloat height = MAX(self.maxHeight, self.internalMaxHeight);
+    height = MIN(self.contentSize.height, height);
+    height = MAX(CGRectGetHeight(self.placeholderLabel.bounds), height);
+    CGSize size = self.maxNumberOfLine || self.maxHeight > 0.0f ? CGSizeMake(self.contentSize.width, height) : self.contentSize;
+    return size;
 }
 
 - (void)setText:(NSString *)text
