@@ -16,7 +16,7 @@
 
 @property (nonatomic) UILabel *placeholderLabel;
 
-@property (nonatomic) CGFloat maxHeight;
+@property (nonatomic) CGFloat internalMaxHeight;
 
 @end
 
@@ -75,7 +75,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return self.maxNumberOfLine ? CGSizeMake(self.contentSize.width, MAX(_placeholderLabel.frame.size.height, MIN(self.contentSize.height, self.maxHeight))) : self.contentSize;
+    return self.maxNumberOfLine || self.maxHeight > 0.0f ? CGSizeMake(self.contentSize.width, MAX(_placeholderLabel.frame.size.height, MIN(self.contentSize.height, MAX(self.maxHeight, self.internalMaxHeight)))) : self.contentSize;
 }
 
 - (void)setText:(NSString *)text
@@ -94,7 +94,7 @@
     }
     NSString *originalText = self.text;
     self.text = text;
-    self.maxHeight = [self sizeThatFits:CGSizeMake(self.frame.size.width, MAXFLOAT)].height;
+    self.internalMaxHeight = [self sizeThatFits:CGSizeMake(self.frame.size.width, MAXFLOAT)].height;
     self.text = originalText;
 }
 

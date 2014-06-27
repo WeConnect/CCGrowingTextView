@@ -14,5 +14,6 @@
 @property (nonatomic) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic) NSUInteger maxNumberOfLine;
+@property (nonatomic, assign) CGFloat maxHeight;
 
 @end

@@ -67,7 +67,8 @@ UIViewAnimationOptions curveOptionsFromCurve(UIViewAnimationCurve curve)
     if ([_textView respondsToSelector:@selector(textContainerInset)])
         _textView.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10);
     _textView.font = [UIFont boldSystemFontOfSize:25];
-    _textView.maxNumberOfLine = 4;
+//    _textView.maxNumberOfLine = 4;
+    _textView.maxHeight = 100.0f;
     
     __weak ViewController *wself = self;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillShowNotification object:0 queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
