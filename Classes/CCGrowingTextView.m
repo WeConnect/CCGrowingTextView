@@ -68,6 +68,12 @@
     [self CCGrowingTextView_updateHeight];
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self CCGrowingTextView_updatePlaceholderLabelHorizontalSize];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:_CCGrowingTextViewTextChangedNotification];
@@ -151,8 +157,12 @@
 
 - (void)CCGrowingTextView_updatePlaceholderLabelHorizontalSize
 {
+    if (CGRectGetWidth(self.bounds) == 0) {
+        return;
+    }
+    
     CGFloat placeholderLabelXOrigin = CCGrowingTextView_isIOS7 ? 5 : 8;
-    CGFloat placeholderLabelWidth = self.frame.size.width - placeholderLabelXOrigin * 2;
+    CGFloat placeholderLabelWidth = CGRectGetWidth(self.bounds) - placeholderLabelXOrigin * 2;
     if ([self respondsToSelector:@selector(textContainerInset)])
     {
         placeholderLabelXOrigin += self.textContainerInset.left;
